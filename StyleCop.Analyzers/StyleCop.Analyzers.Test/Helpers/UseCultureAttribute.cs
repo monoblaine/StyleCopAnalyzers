@@ -92,6 +92,9 @@ namespace StyleCop.Analyzers.Test.Helpers
             this.originalDefaultCulture = CultureInfo.DefaultThreadCurrentCulture;
             this.originalDefaultUiCulture = CultureInfo.DefaultThreadCurrentUICulture;
 
+            CultureInfo.DefaultThreadCurrentCulture = this.Culture;
+            CultureInfo.DefaultThreadCurrentUICulture = this.UiCulture;
+
             Thread.CurrentThread.CurrentCulture = this.Culture;
             Thread.CurrentThread.CurrentUICulture = this.UiCulture;
 
@@ -106,6 +109,9 @@ namespace StyleCop.Analyzers.Test.Helpers
         /// <param name="methodUnderTest">The method under test</param>
         public override void After(MethodInfo methodUnderTest)
         {
+            CultureInfo.DefaultThreadCurrentCulture = this.originalCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = this.originalUiCulture;
+
             Thread.CurrentThread.CurrentCulture = this.originalCulture;
             Thread.CurrentThread.CurrentUICulture = this.originalUiCulture;
 
