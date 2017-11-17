@@ -46,7 +46,7 @@ If (-not (Test-Path $nuget)) {
 }
 
 # build the main project
-$msbuild = "${env:ProgramFiles(x86)}\MSBuild\$VisualStudioVersion\Bin\MSBuild.exe"
+$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\Preview\Community\MSBuild\15.0\Bin\MSBuild.exe"
 If (-not (Test-Path $msbuild)) {
 	$host.UI.WriteErrorLine("Couldn't find MSBuild.exe")
 	exit 1
@@ -90,7 +90,7 @@ if (-not $SkipKeyCheck) {
 	. .\keys.ps1
 
 	foreach ($pair in $Keys.GetEnumerator()) {
-		$assembly = Resolve-FullPath -Path "..\StyleCop.Analyzers\StyleCop.Analyzers.CodeFixes\bin\$BuildConfig\StyleCop.Analyzers.dll"
+		$assembly = Resolve-FullPath -Path "..\StyleCop.Analyzers\StyleCop.Analyzers.CodeFixes\bin\$BuildConfig\net452\StyleCop.Analyzers.dll"
 		# Run the actual check in a separate process or the current process will keep the assembly file locked
 		powershell -Command ".\check-key.ps1 -Assembly '$assembly' -ExpectedKey '$($pair.Value)' -Build '$($pair.Key)'"
 		If (-not $?) {
@@ -98,7 +98,7 @@ if (-not $SkipKeyCheck) {
 			exit $LASTEXITCODE
 		}
 
-		$assembly = Resolve-FullPath -Path "..\StyleCop.Analyzers\StyleCop.Analyzers.CodeFixes\bin\$BuildConfig\StyleCop.Analyzers.CodeFixes.dll"
+		$assembly = Resolve-FullPath -Path "..\StyleCop.Analyzers\StyleCop.Analyzers.CodeFixes\bin\$BuildConfig\net452\StyleCop.Analyzers.CodeFixes.dll"
 		# Run the actual check in a separate process or the current process will keep the assembly file locked
 		powershell -Command ".\check-key.ps1 -Assembly '$assembly' -ExpectedKey '$($pair.Value)' -Build '$($pair.Key)'"
 		If (-not $?) {
