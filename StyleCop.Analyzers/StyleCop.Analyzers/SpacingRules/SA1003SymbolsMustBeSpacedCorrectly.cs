@@ -344,7 +344,7 @@ namespace StyleCop.Analyzers.SpacingRules
 
             var tokenString = castExpression.OpenParenToken.ToString() + castExpression.Type.ToString() + castExpression.CloseParenToken.ToString();
             CheckToken(context, castExpression.OpenParenToken, mustHaveLeadingWhitespace, false, false, tokenString);
-            CheckToken(context, castExpression.CloseParenToken, false, false, false, tokenString);
+            CheckToken(context, castExpression.CloseParenToken, false, false, true, tokenString);
         }
 
         private static void HandleEqualsValueClause(SyntaxNodeAnalysisContext context)

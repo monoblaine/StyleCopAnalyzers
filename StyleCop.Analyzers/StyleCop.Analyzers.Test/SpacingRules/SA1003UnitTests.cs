@@ -31,14 +31,14 @@ namespace StyleCop.Analyzers.Test.SpacingRules
     public void Bar()
     {
         var v1 = +1;
-        var v2 = (byte)2;
+        var v2 = (byte) 2;
         var v3 = (--v1 == 0);
         var v4 = new[] { 1, 2, 3 };
         var v5 = 1;
         var v6 = v4[++v5];
         var v7 =
 ++v5;
-        var v8 = (short)++v2;
+        var v8 = (short) ++v2;
         var v9 = v4[ /* increment */ ++v1];
         
         // valid for SA1003 only
@@ -100,7 +100,7 @@ v1;
 v1;
         var v5 = ~/*comment*/v1;
         var v6 = new[] { 1, 2, 3 };
-        var v7 = ( (byte)v1 == 0);
+        var v7 = ( (byte) v1 == 0);
         var v8 = v6[ ~v1];
 
         var v9_1 = new
@@ -145,7 +145,7 @@ v1;
 v1;
         var v5 = ~/*comment*/v1;
         var v6 = new[] { 1, 2, 3 };
-        var v7 = ((byte)v1 == 0);
+        var v7 = ((byte) v1 == 0);
         var v8 = v6[~v1];
 
         var v9_1 = new
@@ -835,9 +835,26 @@ public class Foo : Exception
 {
     public string TestMethod(int i)
     {
-        return $""Test value 1: {(byte)i:X2}\r\n""
+        return $""Test value 1: {(byte) i:X2}\r\n""
             + $""Test value 2: {++i}\r\n""
             + $""Test value 3: {i++}\r\n"";
+    }
+}
+";
+
+            await this.VerifyCSharpDiagnosticAsync(testCode, EmptyDiagnosticResults, CancellationToken.None).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Verifies that a space after a type cast will not trigger any diagnostics.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
+        [Fact]
+        public async Task TestTypeCastAsync()
+        {
+            var testCode = @"public class TestClass {
+    public void TestMethod (int i) {
+        var ehe = (byte) i;
     }
 }
 ";
@@ -861,7 +878,7 @@ public class Foo : Exception
     public void TestMethod2(int i)
     {
         TestMethod1(
-            (byte)i,
+            (byte) i,
             ++i);
     }
 }
